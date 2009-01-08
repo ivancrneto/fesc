@@ -1,0 +1,55 @@
+# Arquivo de documentação de uso do netAll
+*** Necessita Atualização ***
+
+NetAll.cpp, Grafo2.cpp, Grafo2.h, Makefile
+
+informação: programa que calcula características da rede, classe Grafo, header
+            da classe Grafo e arquivo Makefile para a compilação, 
+            respectivamente.
+compilação: $ make
+execução: $ ./netAll <tipoArquivoPajek> <nomeArquivoPajek> 
+          ($ ./netAll lis rede010.net ou $ ./netAll mat rede025.net)
+  tipoArquivoPajek: lis para lista de adjacências e mat para matriz de 
+                    adjacências (ambas no formato do Pajek).
+  nomeArquivoPajek: redeXXX.net
+saída: arquivo redeXXX.net.mat contendo a matriz de vizinhanças e arquivo
+       redeXXX.net.pth, com uma "tabela" contendo o coeficiente de aglomeração e
+       caminho mínimo de cada vértice da rede.
+
+       
+scriptNETALL.sh
+
+informação: script auxiliar para a execução de netAll. A intenção é a execução
+            do netAll com todos os arquivos existentes.
+execução: $ ./scriptNETALL.sh
+saída: geração de redeXXX.net.mat a redeYYY.net.mat e de redeXXX.net.pth a
+       redeYYY.net.pth.
+
+
+escrevaScriptNetAll.c
+
+informação: script feito para evitar que se altere na mão o scriptNETALL.sh,
+            dando opções de definir a rede mínima, a rede máxima e a variação
+            para se chegar da primeira à segunda.
+compilação: $ gcc escrevaScriptNetAll.c -o escrevaScriptNetAll
+execução: $ ./escrevaScriptNetAll <primeiro limiar> <último limiar> <variação>
+            (./escreveScriptNetAll 10 50 2 escreverá um scriptNETALL.sh que
+            fará com que o netAll atue em rede010.net, rede012.net, rede014.net,
+            ..., rede46.net, rede50.net).
+  primeiro limiar: setando o primeiro limiar como A, o netAll executará
+                   iniciando de redeA.net.
+  último limiar: setando o último limiar como B, o netAll executará iniciando de
+                 redeB.net.
+  variação: determina a variação da execução (incremento de 1 em 1, ou 2 em 2,
+            etc).
+saída: arquivo scriptNETALL.sh pronto para ser executado, que rodará o netAll de
+       acordo com o que foi definido em escrevaScriptNetAll.
+
+       
+scriptDoMalQueFazTudo.cpp
+
+informação: em construção. Executa o geraRedes, escrevaScriptNetAll,
+            scriptNETALL, e netAll, conforme definição do usuário.
+compilação: $ g++ scriptDoMalQueFazTudo.cpp -o scriptDoMalQueFazTudo
+execução: $ ./scriptDoMalQueFazTudo
+saída: a saída de todos os programas que ele executa.

@@ -1,0 +1,34 @@
+# Arquivo de documentação dos scripts de geração de redes
+
+geraRedes.cpp
+
+compilação: $ g++ geraRedes.cpp -o geraRedes
+execução: $ ./geraRedes <relação crítica> <arquivo> <tamanho da matriz>
+  relação crítica: limiar desejado para a geração da rede (ex: limiar 50 haverá
+                   ligações [arestas] se a similaridade entre duas proteínas 
+                   [vértices] for maior ou igual a 50).
+  arquivo: nome do arquivo que contém a matriz de similaridades.
+  tamanho da matriz: número de vértices da matriz de similaridades.
+saída: é gerado um arquivo com listas de adjacências no formato do Pajek, com o 
+       nome convencionado a redeXXX.net, onde XXX == relação crítica (no 
+       exemplo, rede050.net)
+
+
+geraRedes.sh
+
+informação: script auxiliar para a execução de geraRedes.cpp. Cria uma pasta
+            chamada Redes/ e executa o geraRedes 101 vezes, utilizando os
+            limiares de 0 a 100. Vem por padrão utilizando a matriz_exemplo.txt,
+            com 64 vértices.
+execução: $ ./geraRedes.sh
+saída: geração de rede000.net a rede100.net dentro da pasta Redes/
+
+
+matriz_exemplo.txt
+
+informação: arquivo de exemplo, contendo uma matriz de similaridades.
+
+
+extra
+  Criar um geraRedesAdj que gere matrizes de adjacências no formato normal, sem
+  estar no formato do Pajek.

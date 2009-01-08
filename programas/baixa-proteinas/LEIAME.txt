@@ -1,0 +1,24 @@
+#Programa para baixar e tratar arquivos contendo informacoes sobre proteinas, do site do NCBI.
+#Charles Novaes de Santana, 30 de janeiro de 2008
+
+DESCRICAO:
+
+Programa feito com a linguagem de script BASH-SCRIPT, ou SHELL-SCRIPT
+
+O script 'baixaProteina.sh' eh responsavel por baixar informacoes sobre as proteinas pretendidas, do site do NCBI. Para isso, utiliza do programa 'wget', que deve estar instalado na plataforma UNIX que se esta utilizando.
+
+Os arquivos de proteinas baixados estao nomeados como:
+
+Pro_<Gi_da_proteina>.html
+
+Os Gi das proteinas foram extraidos do arquivo entrada.txt, que contem 5 campos separados por '|'. O segundo campo deste arquivo eh o Gi da proteina.
+
+Os arquivos .html baixados sao convertidos em arquivos texto, com a utilizacao do programa 'html2text', que deve estar instalado na plataforma UNIX que se esta utilizando. 
+
+Os arquivos baixados contem alguns caracteres inuteis, que dificultam a leitura das informacoes. Por isso, o script 'baixaProteina.sh' executa automaticamente o programa 'limpador', que deixa apenas os caracteres compreensiveis.
+
+Apos esse tratamento inicial dos arquivos das proteinas, eles sao copiados para a pasta 'ExtrairInformacoes', juntamente com um arquivo contendo os Gi das proteinas baixadas, chamado 'listaGi.dat'. Estes arquivos copiados serao utilizados pelos programas de extracao das informacoes das proteinas, naquele diretorio.
+
+PARA RODAR:
+
+sh baixaProteina.sh entrada.txt

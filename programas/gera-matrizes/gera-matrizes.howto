@@ -1,0 +1,38 @@
+# Arquivo de documentação dos scrips de geração de matrizes
+
+geraMatrizes.c
+
+compilação: $ gcc geraMatrizes.c -o geraMatrizes
+execução: $ ./geraMatrizes <vértices>
+  vértices: número de vértices que se deseja que a rede tenha.
+saída: arquivo de nome convencionado redeXXX.net, onde XXX == vértices (ex:
+       rede065.net), contendo uma representação de uma rede através de uma
+       matriz de adjacências aleatória.
+
+       
+geraMatrizes.sh
+
+informação: script auxiliar para a execução de geraMatrizes.c. Gera matrizes
+            aleatórias com base em uma variação definida no script (padrão
+            inicia de 100, varia de 100 em 100 até 10000).
+execução: $ ./geraMatrizes.sh
+saída: geração de redeXXX.net a redeYYY.net variando de Z.
+
+
+geraMatrizesPajek.c
+
+compilação: $ gcc geraMatrizesPajek.c -o geraMatrizesPajek
+execução: $ ./geraMatrizesPajek <vértices>
+  vértices: número de vértices que se deseja que a rede tenha.
+saída: arquivo de nome convencionado redeXXX.net, onde XXX == vértices (ex:
+       rede065.net), contendo uma representação de uma rede através de uma
+       lista de adjacências aleatória gerada no formato do Pajek.
+
+       
+geraMatrizes.sh
+
+informação: script auxiliar para a execução de geraMatrizesPajek.c. Gera
+            matrizes aleatórias com base em uma variação definida no script
+            (padrão inicia de 100, varia de 100 em 100 até 10000).
+execução: $ ./geraMatrizesPajek.sh
+saída: geração de redeXXX.net a redeYYY.net variando de Z.

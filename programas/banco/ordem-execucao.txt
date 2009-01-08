@@ -1,0 +1,6 @@
+01 - listadir.pl -> o arquivo listadir.pl executa o arquivo readfile.pl
+02 - writefile.pl -> o resultado desse arquivo é utilizado pelo BLAST
+03 - similaridade.pl -> esse arquivo executa o BLAST, a analise de similaridade
+04 - matriz_memoria.pl -> ler a tabela similaridade e gerar um arquivo .txt com a matriz de similaridade entre as sequencias
+05 - 03_aresta_por_limiar.c -> gera as matrizes de adjacencia para cada grau de similaridade
+06 - otimizarMadChar.pl. compila e executa o Marchar.f e armazena em arquivos os resultados do madchar em um arquivo para cada analise do madchar
