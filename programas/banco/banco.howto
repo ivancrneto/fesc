@@ -1,1 +1,158 @@
-# Arquivo de documentacao do uso dos scripts do banco
+É utilizado como padrão sistema operacinal Debian GNU/Linux
+
+
+Passo 1: Instalação de Pacotes
+
+# aptitude install mysql-client mysql-server mysql-admin mysql-query-browser bioperl perl-base perl-modules blast2
+
+
+Passo 2: Configuração do banco de dados Mysql
+
+Editar arquivo /etc/mysql/my.cnf
+max_allowed_packet = 16M modificar para Mmax_allowed_packet = 64M (há duas ocorrências)
+
+Criação de conta de root:
+# mysqladmin -u root password senha (1234)
+
+Criação do Banco:
+# mysql -u root -p
+#<Digitar password>
+
+Criação da Database: (é interessante a criação de uma database com nome que identifique a enzima)
+
+mysql> create database <nome da database>; (biotec)
+mysql> exit
+
+
+Passo 3: Baixando as sequências do GeneBank
+Deve-se procurar no NCBI (http://www.ncbi.nlm.nih.gov/) as sequências desejadas e baixá-las manualmente, utilizando "nome da proteína" AND "E.C da proteína". (Consideramos a partir de agora que as sequências baixadas estão no diretório atual e que trabalharemos referenciando o diretório atual). Os arquivos devem estar no formato GenPept e suas extensões devem ser renomeadas para .seq.
+
+
+Passo 4: Adicionando a procedure ao banco Mysql
+Na mesma pasta dos scripts, temos um arquivo chamado scripts.sql. Temos que trabalhar no mesmo diretório sempre.
+
+$ mysql -u root -p
+$ <Digitar password> (1234)
+mysql> use <database que você criou>; (biotec)
+
+Adicionando a procedure:
+
+mysql> \. scripts.sql
+mysql> exit
+
+Não se preocupar com eventuais erros que podem ocorrer na adição da procerure (scripts.sql)
+
+
+Passo 5: Rodando os Scripts
+
+1º Script: listadir.pl e readFile.pl (Lêem os arquivos formato GeneBank e armazenam no Mysql)
+  Em listadir.pl: Modificar linha 11, onde temos eq ".seq1"){ modificar para eq ".seq"){
+  Em readFile.pl:
+    Linha 15
+      $database = "biotec"; # nome do banco de dados
+	    $host = "localhost"; # nome da maquina 
+	    $usuario = "root"; # usuario
+	    $senha = "123456"; # senha
+	  Modificar para:
+		  $database = "<nome da database criada>"; # (biotec) nome do banco de dados
+	    $host = "localhost"; # nome da maquina 
+	    $usuario = "root"; # usuario
+	    $senha = "123456"; # (senha criada para a conta de root do mysql) senha
+	  Descomentar linhas: 54 a 58 e 78
+	
+  $ ./listadir.pl	
+
+2º Script: writefile.pl (Lê do mysql e cria um arquivo no formato FASTA)
+  Linha 7:
+    $database = "biotec"; # nome do banco de dados
+  	$host = "localhost"; # nome da maquina 
+	  $usuario = "root"; # usuario
+	  $senha = "1234"; # senha
+	Modificar para:
+	  $database = "<nome da database criada>"; # (biotec) nome do banco de dados
+    $host = "localhost"; # nome da maquina 
+    $usuario = "root"; # usuario
+    $senha = "123456"; # (senha criada para a conta de root do mysql) senha
+    
+  ATENÇÃO para a linha 15!!! Escolher uma das três opções e descomentar, deixando as
+  outras duas comentadas, de acordo com o resultado desejado.
+  
+  ATENÇÃO para a linha 25:
+    open(sequencias, ">seq_nucleotideo_completas_locus.fasta");
+    "seq_nucleotideo_completas_locus.fasta" será o nome do arquivo de saída. (Formato FASTA)
+    
+  $ ./writefile.pl
+  $ formatdb -i <nome do arquivo de saída do writefile.pl> (seq_nucleotideo_completas_locus.fasta)
+  
+3º Script: similaridade.pl (Executa o blast, analisando a similaridade entre as sequências e escreve no mysql)
+  Linha 12:
+    $database = "biotec"; # nome do banco de dados
+  	$host = "localhost"; # nome da maquina 
+	  $usuario = "root"; # usuario
+	  $senha = "1234"; # senha
+	Modificar para:
+	  $database = "<nome da database criada>"; # (biotec) nome do banco de dados
+    $host = "localhost"; # nome da maquina 
+    $usuario = "root"; # usuario
+    $senha = "123456"; # (senha criada para a conta de root do mysql) senha
+    
+  ATENÇÃO para a linha 20!!! Escolher uma das três opções e descomentar, deixando as
+  outras duas comentadas, de acordo com o resultado desejado. Além disso, após
+  "database =>", colocar o nome do arquivo de saída gerado por writefile.pl
+  (seq_nucleotideo_completas_locus.fasta)
+  
+  ATENÇÃO para as linhas 32, 33 e 34!!! Escolher uma das três opções e descomentar, deixando as
+  outras duas comentadas, de acordo com o resultado desejado.
+  
+  $ ./similaridade.pl
+  
+4º Script: posicao.pl (dermina a posição de cada sequência na matriz de similaridades, escrevendo no mysql)
+  Linha 7:
+    $database = "biotec"; # nome do banco de dados
+  	$host = "localhost"; # nome da maquina 
+	  $usuario = "root"; # usuario
+	  $senha = "1234"; # senha
+	Modificar para:
+	  $database = "<nome da database criada>"; # (biotec) nome do banco de dados
+    $host = "localhost"; # nome da maquina 
+    $usuario = "root"; # usuario
+    $senha = "123456"; # (senha criada para a conta de root do mysql) senha
+    
+  ATENÇÃO para as linhas 15, 16, 17 e 18!!! Escolher uma das quatro opções e descomentar, deixando as
+  outras três comentadas, de acordo com o resultado desejado.
+  
+  ATENÇÃO para as linhas 27, 28, 29 e 30!!! Escolher uma das quatro opções e descomentar, deixando as
+  outras três comentadas, de acordo com o resultado desejado.
+  
+  $ ./posicao.pl
+  
+5º Script: matriz_memoria.pl
+  Linha 6:
+    $database = "biotec"; # nome do banco de dados
+  	$host = "localhost"; # nome da maquina 
+	  $usuario = "root"; # usuario
+	  $senha = "1234"; # senha
+	Modificar para:
+	  $database = "<nome da database criada>"; # (biotec) nome do banco de dados
+    $host = "localhost"; # nome da maquina 
+    $usuario = "root"; # usuario
+    $senha = "123456"; # (senha criada para a conta de root do mysql) senha
+    
+  ATENÇÃO para as linhas 14, 15, 16, 17, 18, 19, 20 e 21!!! Escolher uma das três opções
+  e descomentar, deixando as outras duas comentadas, de acordo com o resultado desejado.
+  
+  ATENÇÃO para as linhas 29, 30 e 31!!! Escolher uma das três opções e descomentar, deixando as
+  outras duas comentadas, de acordo com o resultado desejado.
+
+  ATENÇÃO para as linhas 49, 50, 51, 52, 53, 54, 55 e 56!!! Escolher uma das três opções
+  e descomentar, deixando as outras duas comentadas, de acordo com o resultado desejado.
+  
+  ATENÇÃO para a linha 129:
+  	open(sequencias, ">matriz_DNA_COMPLETAS.txt");
+  	"matriz_DNA_COMPLETAS.txt" será o nome do arquivo de saída (matriz de similaridades)
+  	
+  $ perl matriz_memoria.pl
+  
+Parte do banco feita, resultado: Matriz de Similaridades
+É interessante a checagem e metodo.howto, nele contém o passoapasso para a execução completa
+do método, que se inicia a partir da matriz de similaridades.
