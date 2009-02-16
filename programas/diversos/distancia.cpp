@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	FILE *arq1, *arq2, *saida;
 	int nVertices,nArquivos;
 	int i,j,k,primeiro;
-	char nomeArquivo1[10], nomeArquivo2[10];
+	char nomeArquivo1[20], nomeArquivo2[10];
 	int **mat1, **mat2;
 	int cont=0;
 	float distancia, normaA, normaB, produtoInterno, coxeno;
@@ -24,20 +24,26 @@ int main(int argc, char **argv)
 	nVertices = atoi(argv[1]);nArquivos = atoi(argv[2]);primeiro = atoi(argv[3]);
 
 	/*ALOCAR MEMORIA*/
-	mat1 = (int **)malloc(sizeof(int*) * 327);
-	mat2 = (int **)malloc(sizeof(int*) * 327);
+	mat1 = (int **)malloc(sizeof(int*) * nVertices);
+	mat2 = (int **)malloc(sizeof(int*) * nVertices);
 	for (i=0;i<nVertices;i++)
 	{
-		mat1[i] = (int *)malloc(sizeof(int) * 327);
-		mat2[i] = (int *)malloc(sizeof(int) * 327);
+		mat1[i] = (int *)malloc(sizeof(int) * nVertices);
+		mat2[i] = (int *)malloc(sizeof(int) * nVertices);
 	}
 
 	for (k=0;k<nArquivos-1;k++)
 	{
-		sprintf(nomeArquivo1,"mv%d.dat",k+primeiro);
+	  if(k < 10) {
+		  sprintf(nomeArquivo1,"rede00%d.net.mat", k+primeiro);
+		}else if(k < 100) {
+		  sprintf(nomeArquivo1,"rede0%d.net.mat", k+primeiro);
+		}else {
+		  sprintf(nomeArquivo1,"rede%d.net.mat", k+primeiro);
+		}
 
 		arq1 = fopen(nomeArquivo1,"r");
-		if (arq1 == NULL){exit(0);}
+		if (arq1 == NULL){printf("NULO!\n");exit(0);}
 		fscanf(arq1,"%*[^\n]\n");
 		fscanf(arq1,"%*[^\n]\n");
 		i =0;
@@ -51,9 +57,19 @@ int main(int argc, char **argv)
 		}
 		fclose(arq1);
 
-		sprintf(nomeArquivo2,"mv%d.dat",k+primeiro+1);
+	  if(k+1 < 10) {
+		  sprintf(nomeArquivo2,"rede00%d.net.mat", k+primeiro+1);
+		}else if(k+1 < 100) {
+		  sprintf(nomeArquivo2,"rede0%d.net.mat", k+primeiro+1);
+		}else {
+		  sprintf(nomeArquivo2,"rede%d.net.mat", k+primeiro+1);
+		}
+		
 		arq2 = fopen(nomeArquivo2,"r");
-		if (arq2 == NULL){exit(0);}
+		if (arq2 == NULL){printf("NULO2!\n");exit(0);}
+		
+		printf("Processando %s e %s\n", nomeArquivo1, nomeArquivo2);
+		
 		fscanf(arq2,"%*[^\n]\n");
 		fscanf(arq2,"%*[^\n]\n");
 		i =0;
@@ -92,13 +108,11 @@ int main(int argc, char **argv)
 	}
 	
 	/*LIBERAR MEMORIA*/
-	for (i=0;i<nVertices;i++)
+  for (i=0;i<nVertices;i++)
 	{
 		free(mat1[i]);
 		free(mat2[i]);
 	}
 	free(mat1);
 	free(mat2);
-
-
 }
