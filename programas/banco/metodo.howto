@@ -1,1 +1,122 @@
 # Arquivo de documentacao da execução do método até se chegar aos resultados finais
+
+A partir da matriz de similaridades (no formato padrao de matriz).
+
+Passo 1: Baixando repositorio
+  Eh necessario ter o pacote git-core instalado
+  $ git clone git://github.com/ivancrneto/fesc.git
+  ou 
+  $ git clone git@github.com:ivancrneto/fesc.git
+
+Passo2: Gerando Redes (matrizes de adjacencia, limiar 0 a 100)
+  Colocar a matriz de similaridades na pasta fesc/programas/gera-redes
+  $ g++ geraRedes.cpp -o geraRedes
+  Editar o arquivo geraRedes.sh, linha 5:
+    ./geraRedes $i matriz_exemplo.txt 64
+  Colocar na terceira e quarta colunas o nome do arquivo da matriz de
+  similaridades e o tamanho da matriz (numero de linhas). Ex:
+    ./geraRedes $i matriz_similaridades.txt 150
+  Executar o script:
+    $ ./geraRedes.sh
+  ** Mais informacoes no arquivo gera-redes.howto
+    
+Passo 3: NetAll
+  Compilar o netAll:
+    $ cd ../../netAll
+    $ make
+  Voltar para a pasta Redes:
+    $ cd ../gera-redes/Redes
+  Copiar executavel do netAll e auxiliar para script:
+    $ cp ../../netAll/netAll . && cp ../../netAll/escrevaScriptNetAll.c .
+  Compilar escrevaScriptNetAll.c:
+    $ gcc escrevaScriptNetAll.c -o escrevaScriptNetAll
+  Executar escrevaScriptNetAll:
+    $ ./escrevaScriptNetAll 0 100 1
+  Eh gerado o arquivo scriptNETALL.sh, com as configuracoes necessarias para
+  executar o netAll. Dar a permissao de execucao para scriptNETALL.sh:
+    $ chmod +x scriptNETALL.sh
+  Executar scriptNETALL.sh:
+    $ ./scriptNETALL.sh
+  ** Mais informacoes no arquivo netAll.howto
+  
+Passo 4: Distancia
+  Copiar o distancia:
+    $ cp ../../diversos/distancia.cpp .
+    $ g++ distancia.cpp -o distancia
+    $ ./distancia 150 101 0 (150 eh a dimensao da matriz_similaridades.txt, ver
+      Passo 2)
+  ** Mais informacoes no arquivo diversos.howto
+  
+Passo 5: Identificacao do limiar critico (Origin)
+  Abrir o arquivo quasiDistancia.dat com o Origin (windows ou wine), analisar
+  o grafico e concluir o valor do limiar critico. Tomemos a partir daqui o
+  limiar critico como 50.
+  
+Passo 6: Madchar
+  Identificado o limiar critico, executar o madchar com a rede desse limiar. No
+  exemplo, rede050.net.
+  A entrada do madchar eh a matriz de adjacencia no formato padrao, e como so
+  temos no formato do pajek, peguemos a matriz de vizinhanca (resultado do
+  netAll) e editemos:
+    $ cp rede050.net.mat rede050netmat
+  Usando search and replace, tudo que nao for 1 no arquivo rede050netmat deve
+  ser 0.
+  Copiar madchar e emadch:
+    $ cp ../../diversos/madchar.f . && cp ../../diversos/emadch.dat .
+  Compilar madchar (eh necessario ter o pacote ifort):
+    $ ifort madchar.f -o madchar
+  Editar o emadch.dat:
+    linha 1: 5 <dimensao da matriz> 1 300 0 1
+    linha 2: <arquivo de entrada> (deve ter 13 caracteres)
+    linha 3: <arquivo de saida> (deve ter 13 caracteres)
+    linha 4: 0
+    linha 5: -1 0 0 0 0 0
+  Exemplo:
+    5 150 1 300 0 1
+    rede050netmat
+    rede050netout
+    0
+    -1 0 0 0 0 0
+  Rodar o madchar:
+    $ ./madchar
+  A saida 11 do madchar (rede050netout_11.dat serve de entrada para o dendo)
+  ** Mais informacoes no arquivo diversos.howto
+  
+Passo 7: Dendo
+  Os resultados do dendo sao os dados para o dendrograma e a matriz de cores.
+  Copiar dendo e edendo:
+    $ cp ../../diversos/dendo.f . && cp ../../diversos/edendo.dat .
+  Compilar dendo (eh necessario ter o pacote ifort):
+    $ ifort dendo.f -o dendo
+  Editar o edendo.dat:
+    linha 1: <dimensao da matriz> <numero de linhas a pular>
+    linha 2: <arquivo de entrada> (deve ter 8 caracteres)
+    linha 3: <arquivo de saida> (deve ter 8 caracteres)
+    linha 4: -1 3
+  Exemplo:
+    150 2
+    rd050_11
+    rd050dnd
+    -1 3
+  Renomear arquivo de entrada
+    $ cp rede050netout_11.dat rd050_11
+  Rodar o dendo:
+    $ ./dendo
+  ** Mais informacoes no arquivo diversos.howto
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

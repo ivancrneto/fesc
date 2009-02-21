@@ -35,7 +35,7 @@ compilação: $ gcc escrevaScriptNetAll.c -o escrevaScriptNetAll
 execução: $ ./escrevaScriptNetAll <primeiro limiar> <último limiar> <variação>
             (./escreveScriptNetAll 10 50 2 escreverá um scriptNETALL.sh que
             fará com que o netAll atue em rede010.net, rede012.net, rede014.net,
-            ..., rede46.net, rede50.net).
+            ..., rede046.net, , rede048.net, rede050.net).
   primeiro limiar: setando o primeiro limiar como A, o netAll executará
                    iniciando de redeA.net.
   último limiar: setando o último limiar como B, o netAll executará iniciando de
