@@ -55,12 +55,24 @@ Passo 5: Identificacao do limiar critico (Origin)
 Passo 6: Madchar
   Identificado o limiar critico, executar o madchar com a rede desse limiar. No
   exemplo, rede050.net.
-  A entrada do madchar eh a matriz de adjacencia no formato padrao, e como so
-  temos no formato do pajek, peguemos a matriz de vizinhanca (resultado do
-  netAll) e editemos:
+  A entrada do madchar eh a matriz de adjacencia quase no formato padrao, com a
+  diferenca que nao temos espacos entre as colunas, apenas as quebras de linha.
+  Como so temos no formato do pajek, peguemos a matriz de vizinhanca (resultado
+  do netAll), usamos o programa viziadchar para transformar a matriz de 
+  vizinhanca na matriz de entrada do pajek.
+  Copiar o viziadchar:  
+    $ cp ../../gera-matrizes/viziadchar.cpp .
+    $ g++ viziadchar.cpp -o viziadchar
+  Compilar:
     $ cp rede050.net.mat rede050netmat
-  Usando search and replace, tudo que nao for 1 no arquivo rede050netmat deve
-  ser 0.
+  Rodar:
+    $ ./viziadchar rede050.net.mat 150
+  O arquivo rede050.net.mat eh gerado pelo netall e corresponde a matriz de
+  vizinhanca. Devemos passar ela como parametro para o viziadchar, seguido do
+  numero de vertices da rede. No caso de nosso exemplo, 150. O viziadchar gerara
+  um arquivo de saida com nome igual ao de entrada, seguido de "_adj". No nosso
+  exemplo, rede050.net.mat_adj. Eh interessante renomea-lo para rede050netmat:
+    $ mv rede050.net.mat_adj rede050netmat
   Copiar madchar e emadch:
     $ cp ../../diversos/madchar.f . && cp ../../diversos/emadch.dat .
   Compilar madchar (eh necessario ter o pacote ifort):
@@ -104,6 +116,11 @@ Passo 7: Dendo
     $ ./dendo
   ** Mais informacoes no arquivo diversos.howto
   
+Passo 8: Dendrograma
+  O dendo gera 6 saidas, cada uma com uma utilidade. A saida numero 4 eh a
+  entrada para o dendrograma. Devemos coloca-la no Origin (windows ou wine) e
+  gerar o grafico.
+  ** Mais informacoes no arquivo diversos.howto
   
   
   
