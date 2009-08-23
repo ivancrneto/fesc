@@ -1,0 +1,39 @@
+PASSO1
+Pegar o arquivo da rede em que se quer utilizar o pajek para visualizar. O
+netAll gera arquivos ja no formato do pajek.
+
+PASSO2
+Alterar o arquivo de entrada do pajek, dispondo em cada linha a comunidade
+correspondente. A numero da linha representa o numero do vertice da rede. As
+comunidades de cada vertice podem ser obtidas com a analise do dendrograma em
+conjunto com a matriz de cores e o arquivo de saida x do programa dendo. (Ja
+esta feita para a, g, h, p, u e se encontra em congruencia1.xls [ou csv] atraves
+das colunas C e B, que indicam o vertice e a comunidade, respectivamente).
+
+PASSO3
+Alterar o colorindo.cpp de acordo com sua rede. Alterar constante NC para o
+numero de comunidades que tem sua rede. Alterar constante NV para o numero de
+vertices que tem sua rede.
+
+PASSO4
+Ainda dentro do arquivo colorindo.cpp, alterar os ifs que definem a cor destinada
+para cada comunidade (linhas 46 a 59). [Ja foi feito para as redes existentes
+uma associacao com base nas cores do Origin, e se encontra no arquivo
+cores_pajek.txt].
+
+PASSO5
+Compilar e executar o colorindo.cpp
+./colorindo comunidades.txt
+comunidades.txt eh um exemplo. O primeiro parametro de execucao eh o arquivo
+feito no passo 2. O arquivo de saida do colorindo eh o colorido.net.
+
+PASSO6
+As linhas do colorido.net devem ser colocadas no lugar das linhas correspondentes
+no arquivo obtido no passo 1. Ex: colorido.net com 176 linhas, copiar as 176 e
+colar no lugar das 176 primeiras linhas do arquivo obtido no passo 1.
+
+PASSO7
+Colocar arquivo alterado no formato do windows. Usando windows [:(], abri-lo com
+o wordpad e salva-lo em txt. Usando o software pajek, abrir o arquivo, pedir
+para desenhar a rede, realizar as alteracoes de design desejadas e salvar em
+bmp. Usando o gimp, passar para eps.

@@ -1,0 +1,46 @@
+Cores
+
+a1 - Black
+a2 - Red
+a3 - Green
+a4 - Blue
+a5 - Cyan
+a6 - Magenta
+a7 - Yellow
+a8 - Dandelion
+a9 - BlueViolet | DarkOrchid
+a10 - Purple
+a11 - BrickRed
+a12 - OliveGreen
+
+g1 - Black
+g2 - Red
+g3 - Green
+g4 - Blue
+g5 - Cyan
+
+h1 - Black
+h2 - Red
+h3 - Green
+h4 - Blue
+h5 - Cyan
+h6 - Magenta
+h7 - Purple
+h8 - BrickRed
+h9 - OliveGreen
+h10 - BlueViolet | DarkOrchid
+
+p1 - Black
+p2 - Blue
+p3 - Red
+p4 - Cyan
+p5 - Green
+p6 - Magenta
+
+u1 - Black
+u2 - Green
+u3 - Red
+u4 - Blue
+u5 - Cyan
+u6 - Yellow
+u7 - Magenta
