@@ -1,0 +1,64 @@
+A entrada eh uma planilha feita a mao como a que esta em exemplo.
+[Explicar depois a planilha]
+A planilha deve ser convertida para csv com "|" como delimitador de texto e nada
+como delimitador de campo.
+
+PASSO1
+Deve ser compilado e executado o precongruencia2.cpp.
+./congruencia congruencia1.csv a u > a-u.csv
+a e u sao as siglas das enzimas contidas na primeira coluna da tabela da planilha
+
+PASSO2
+Deve ser compilado e executado o precongruencia3.cpp.
+./congruencia2 a-u.csv a u > a-u2.csv
+a e u sao as siglas das enzimas contidas na primeira coluna da tabela da planilha
+Usa como entrada a saida de precongruencia2.
+
+congruencia.cpp e congruencia2.cpp tem como produto final uma planilha com a
+intersecao entre as redes e a congruencia entre elas, de forma a facilitar a
+visualizacao.
+
+PASSO4
+Compilar e executar o congtabin.cpp. A entrada para ele eh o mesmo arquivo ja
+convertido para csv.
+./congtabin congruencia1.csv > matrizes.txt
+A saida tem que ser redirecionada para um arquivo
+
+PASSO5
+O congtabin gera como saida (por enquanto) 5 matrizes. Duas delas serao
+referentes aas redes que serao utilizadas para calcular a congruencia. Cada
+uma das duas matrizes a ser utilizadas deve ser copiada manualmente para um
+arquivo diferente. Ex: acetyl.dat e udp.dat.
+
+PASSO6
+Compilar e executar o pre-congrua.cpp.
+./pre-congrua acetyl.dat 12 (numero de comunidades da acetyl)
+./pre-congrua udp.dat 7 (numero de comunidades da udp)
+Executar separadamente para cada arquivo. O pre-congrua arruma os arquivos para
+que fiquem no formato de entrada do congrua, gerando no exemplo acetyl_2.txt e
+udp_2.txt.
+
+PASSO7
+Compilar e executar o congrua.cpp.
+./congrua acetyl_2.txt udp_2.txt
+Sao os arquivos gerados por pre-congrua. No exemplo gera um arquivo de nome
+acetyl_2udp_2.txt contendo a tabela da congruencia. O congrua ainda esta incompleto.
+Por enquanto so mostra a tabela. Falta: Numero de intersecao, numero de associacao e
+descricao das associacoes, exibicao dos nao-congruentes, porcentagem de congruencia.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
