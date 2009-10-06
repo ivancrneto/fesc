@@ -1,1 +1,38 @@
 # Arquivo de documentacao de uso de scripts de baixar proteínas
+
+Passo 1
+    Le de um arquivo que pode ser derivado a partir de congruencia.xls, pois o
+    formato de leitura eh "comunidade lixo1 gi". Basta pegar o arquivo e usar
+    as colunas B, C, D, copiando para um txt que sera o arquivo de entrada.
+    Vamos chamar de entrada.txt. Os tres elementos de cada linha devem ter o
+    caractere "|" separando-os. PS: antes de copiar, certificar-se que o arquivo
+    esta ordenado pela coluna C. PS2: Escolher apenas os referentes aa uma
+    proteina, ver coluna A com codigos de uma letra representando a rede. Se for
+    utilizado o arquivao, este deve estar ordenado pela coluna A, depois pela C.
+    
+Passo 2
+    Criar pasta ExtrairInformacoes
+    
+Passo 3
+    Executar baixa2.sh: ./baixa2.sh entrada.txt
+Passo 4
+    Compilar e executar extrairInformacoes.cpp:
+        g++ extrairInformacoes.cpp -o ExtInf
+        ./ExtInf
+    ExtrairInformacoes gera tipos de arquivos que sao uteis para a geracao da
+    grande tabela: congruencia1.xls
+    
+Passo 5
+    Compilar e executar o gera-planilha.cpp
+        g++ gera-planilha.cpp -o gP
+        ./gP > planilha.csv
+        
+Passo 6
+    Exportar planilha para OpenOffice usando "|" como delimitador. No OO,
+    remover a ultima linha
+    
+Passo 7
+    Juntar dados da saida do gera-planilha com as colunas E, F, G da planilha
+    base. Copiar as colunas E, F e G da planilha base e colar nas colunas D,
+    E e F da saida do gera-planilha.cpp, ja aberto pelo OpenOffice. Ainda
+    manual, precisa ser automatizada.
